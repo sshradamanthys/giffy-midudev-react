@@ -1,23 +1,32 @@
 import logo from "./logo.svg";
 import "./App.css";
-import Gifs from "./components/Gifs";
+import Home from "./pages/Home";
+import SearchResults from "./pages/SearchResults";
+import Detail from "./pages/Detail";
 import { Link, Route } from "wouter";
+import StaticContext from "./context/StaticContext";
+import { GifsProvider } from "./context/GifsContext";
 
 function App() {
   return (
-    <div>
-      <header className="App-header">
-        <h3>Giffy</h3>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>React + wouter + API Giphy </p>
-      </header>
-      <section>
-        <Link to="/gif/saitama">Saitama</Link>
-        <Link to="/gif/morty">Morty</Link>
-        <Link to="/gif/rick">Rick</Link>
-      </section>
-      <Route component={Gifs} path="/gif/:keyword" />
-    </div>
+    <StaticContext.Provider value={{ msg: "Value Provider" }}>
+      <div>
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h3>
+            <Link to="/">Giffy</Link>
+          </h3>
+          <p>React + wouter + API Giphy </p>
+        </header>
+        <section className="App-content">
+          <GifsProvider>
+            <Route component={Home} path="/" />
+            <Route component={SearchResults} path="/search/:keyword" />
+            <Route component={Detail} path="/gif/:id" />
+          </GifsProvider>
+        </section>
+      </div>
+    </StaticContext.Provider>
   );
 }
 

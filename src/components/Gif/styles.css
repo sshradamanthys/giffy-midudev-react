@@ -1,0 +1,9 @@
+.Gif img {
+  width: 100%;
+  object-fit: contain;
+  vertical-align: top;
+}
+
+.Gif {
+  margin-bottom: 0;
+}
