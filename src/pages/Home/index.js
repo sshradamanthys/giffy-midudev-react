@@ -1,8 +1,9 @@
 import { useState } from "react";
-import Gifs from "../../components/Gifs";
-import Loader from "../../components/Loader";
+import Gifs from "components/Gifs";
+import Loader from "components/Loader";
+import TrendingSearches from "components/TrendingSearches";
 import { useLocation } from "wouter";
-import { useGifs } from "../../hooks/useGifs";
+import { useGifs } from "hooks/useGifs";
 
 const Home = () => {
   const [keyword, setKeyword] = useState("");
@@ -26,8 +27,15 @@ const Home = () => {
           placeholder="Search a gif here.."
         />
       </form>
-      <h3>Ultima busqueda</h3>
-      {loading ? <Loader /> : <Gifs gifs={gifs} />}
+      <div className="App-main">
+        <div className="App-results">
+          <h3>Ultima busqueda</h3>
+          {loading ? <Loader /> : <Gifs gifs={gifs} />}
+        </div>
+        <div className="App-category">
+          <TrendingSearches />
+        </div>
+      </div>
     </>
   );
 };
