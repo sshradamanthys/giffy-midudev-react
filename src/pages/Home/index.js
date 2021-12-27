@@ -1,36 +1,27 @@
-import { useState } from "react";
+import { useCallback } from "react";
 import Gifs from "components/Gifs";
-import Loader from "components/Loader";
 import TrendingSearches from "components/TrendingSearches";
+import SearchForm from "components/SearchForm";
 import { useLocation } from "wouter";
 import { useGifs } from "hooks/useGifs";
 
 const Home = () => {
-  const [keyword, setKeyword] = useState("");
   const [path, pushLocation] = useLocation();
-  console.log(`path`, path);
-  const { loading, gifs } = useGifs();
+  console.log(path);
+  const { gifs } = useGifs();
 
-  const handleChange = (e) => {
-    setKeyword(e.target.value);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    pushLocation(`/search/${keyword}`);
-  };
+  const handleSubmit = useCallback(
+    ({ keyword }) => pushLocation(`/search/${keyword}`),
+    [pushLocation]
+  );
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          onChange={handleChange}
-          placeholder="Search a gif here.."
-        />
-      </form>
+      <SearchForm onSubmit={handleSubmit} />
       <div className="App-main">
         <div className="App-results">
-          <h3>Ultima busqueda</h3>
-          {loading ? <Loader /> : <Gifs gifs={gifs} />}
+          <h3 className="App-title">Ultima busqueda</h3>
+          <Gifs gifs={gifs} />
         </div>
         <div className="App-category">
           <TrendingSearches />

@@ -1,13 +1,19 @@
+import { memo } from "react";
 import { Link } from "wouter";
 import "./styles.css";
 
 const Gif = ({ id, title, url }) => {
   return (
-    <Link to={`/gif/${id}`} className="Gif">
-      <img key={id} src={url} alt={title} />
-      <h4>{title}</h4>
-    </Link>
+    <div className="Gif">
+      <Link to={`/gif/${id}`} className="Gif-link">
+        <h4>{title}</h4>
+        <img loading="lazy" alt={title} src={url} />
+      </Link>
+    </div>
   );
 };
 
-export default Gif;
+export default memo(
+  Gif,
+  (prevProps, nextProps) => prevProps.id === nextProps.id
+);
