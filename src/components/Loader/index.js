@@ -1,18 +1,12 @@
 import "./styles.css";
 
-const Loader = () => {
+export default function Loader() {
   return (
-    <div className="lds-roller">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+    <div className="lds-ring">
       <div></div>
       <div></div>
       <div></div>
       <div></div>
     </div>
   );
-};
-
-export default Loader;
+}
